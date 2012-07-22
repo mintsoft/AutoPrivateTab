@@ -1,7 +1,8 @@
 opera.extension.onmessage = function(event) {
 
 	var	sitesToMatch = widget.preferences['siteList'],
-		doneOnce = false;
+		doneOnce = false
+		sourceTab = {private: true};	//incase of a catastrophe we might a well just bomb out
 	
 	sitesToMatch = JSON.parse(sitesToMatch?sitesToMatch:"[]");
 	
@@ -40,3 +41,9 @@ opera.extension.onmessage = function(event) {
 		}
 	}
 }
+/*
+//unwise to use this atm, appears to be a bug in the tabs handling - blanks the url for the tab entirely!?
+opera.extension.tabs.oncreate = function(event) {
+	console.debug("tabs.oncreate",event);
+}
+*/
