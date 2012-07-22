@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>AutoPrivateTab</title>
+		<link rel="stylesheet" href="css/common.css" type="text/css" />
+		<link rel="stylesheet" href="css/options.css" type="text/css" />
+		<script type="text/javascript" src='js/options.js'></script>
+	</head>
+	
+	<body>
+		<div id='mint_optionsContainer' class='mint_mainContainer'>
+			<h1>AutoPrivateTab</h1>
+
+			<form id="prefform" onsubmit="return false;">
+				<p>If the full URL contains any of the following words (one match per line) it will be automatically reopened in a private tab:</p>
+				<!--
+				<ul class='options'>
+					<li><input type='text' name=''/></li>
+				</ul>
+				-->
+				<textarea name='keyList' id='keyList' cols='88' rows='10'></textarea>
+				<div id='saveContainer'>
+					<input type="button" value="Save" id='saveButtonInput' />
+				</div>
+			</form>
+			
+		</div>
+	</body>
+</html>

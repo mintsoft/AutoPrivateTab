@@ -1,0 +1,89 @@
+/* Reset All */
+* 
+{
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+	background: none;
+	color: inherit;
+}
+
+/* Set background and font */
+body, p, h1,h2,h3,h4,h5,h6, *
+{
+	font-family:	"Trebuchet MS", "Liberation Sans", "Tahoma", Sans-Serif;
+}
+
+body 
+{
+	font-size: small;
+	color: #111;
+	background: white;
+}
+
+/** Remove Bulletpoints */
+ul
+{
+	list-style:none;
+}
+
+/* Remargin p's */
+p 
+{
+	margin: 1ex 0em;
+}
+
+a:visited, a:link
+{
+	color: inherit;
+}
+
+/** Main Container for options & fullscreen things **/
+.mint_mainContainer
+{
+	width: 50em;
+	min-width: 50em;
+	margin-top: 2ex;
+	margin-bottom: 2ex;
+	margin-left: auto;
+	margin-right: auto;
+	background: #fcfcfc;
+	padding: 2ex;
+	box-shadow: 2px 2px 10px #666;
+	border-radius: 5px;
+}
+
+input, textarea, select, .SelectWrapper
+{
+	border: 1px solid #ddd;
+	padding: 1ex 1ex;
+	border-radius: 5px;
+	box-shadow: inset 1px 1px 2px #666;
+	color: #666;
+}
+input, textarea, select, .SelectWrapper, tr.explodeRow, tr.explodeRow td
+{
+	background: #eee;
+}
+
+/** Force a Y-scrollbar**/
+/*
+	Only really applied to html on the password matrix
+	to stop it from jumping around when you search
+ */
+.y-scrollbar 
+{
+	overflow-y: scroll;
+}
+
+/** Save Button **/
+#saveContainer, .centeredContents
+{
+	text-align: center;
+}
+
+/** Hidden from display **/
+.hidden 
+{
+	display: none;
+}
