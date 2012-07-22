@@ -7,6 +7,8 @@ function loadList() {
 		if(sitesToMatch[x].replace(/^\s+|\s+$/g, "")!="")	//skip blanks if they exist
 			document.getElementById("keyList").value += sitesToMatch[x]+"\n";
 	}
+	
+	document.getElementById("closeSourceTab").checked = widget.preferences['closeSourceTab']==="true";
 }
 
 function saveList() {
@@ -14,10 +16,13 @@ function saveList() {
 	inputList = inputList.replace(/^\s+|\s+$/g, "");	//remove any spare lines on the end
 	var arrayList = inputList.split(/[\r\n]+/);
 	widget.preferences['siteList'] = JSON.stringify(arrayList);
+	
+	widget.preferences['closeSourceTab'] = document.getElementById("closeSourceTab").checked;
+	
 	return false;
 }
 
-window.onload = function(){
+window.onload = function() {
 	loadList();
 	document.getElementById("saveButtonInput").onclick = saveList;
 	document.getElementById("prefform").onsubmit = saveList;

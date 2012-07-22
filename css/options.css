@@ -14,18 +14,31 @@ h1 img
 	margin-right: 0.5em;
 }
 
-a img {
+a img 
+{
 	vertical-align: baseline;
 }
 
-h1,h2,h3,h4,h5, .bigLabel {
+h1,h2,h3,h4,h5, .bigLabel 
+{
 	text-shadow: rgba(0,0,0,0.2) 1px -1px 2px;
 }
 
-h2 {
+h2 
+{
 	margin: 2ex 0ex;
 }
 
-#keyList {
+#keyList 
+{
 	margin-bottom: 2.2ex;
+}
+
+p input 
+{
+	margin-left: 2em;
+}
+p label 
+{
+	font-weight: bold;
 }
