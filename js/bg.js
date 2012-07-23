@@ -25,7 +25,7 @@ opera.extension.onmessage = function(event) {
 	
 	for (var x=0; x<sitesToMatch.length; ++x)
 	{
-		if (!doneOnce && event.data.url.indexOf(sitesToMatch[x])!=-1)
+		if (!doneOnce && event.data.url.toLowerCase()indexOf(sitesToMatch[x].toLowerCase())!=-1)
 		{
 			opera.extension.tabs.create({
 				'url': event.data.url, 
