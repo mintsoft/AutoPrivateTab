@@ -7,7 +7,6 @@ function str_trim(inputString)
 opera.extension.onmessage = function(event) {
 
 	var	sitesToMatch = widget.preferences['siteList'],
-		doneOnce = false
 		sourceTab = {private: true};	//incase of a catastrophe we might a well just bomb out
 	
 	sitesToMatch = JSON.parse(sitesToMatch?sitesToMatch:"[]");
