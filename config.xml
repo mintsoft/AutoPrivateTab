@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" id="https://github.com/mintsoft/AutoPrivateTab" version="1.11" defaultlocale="en">
+<widget xmlns="http://www.w3.org/ns/widgets" id="https://github.com/mintsoft/AutoPrivateTab" version="1.12" defaultlocale="en">
 	<name short='AutoPrivateTab'>AutoPrivateTab</name>
 	<description xml:lang="en">Automatically re-opens URLS containing keywords in private tabs. The matching URL itself will still appear in history etc, however it provides a nice way to automatically use a specific jump page for private browsing.</description>
 	<author href="https://github.com/mintsoft" email="mintsoft@myopera.com">Rob Emery</author>

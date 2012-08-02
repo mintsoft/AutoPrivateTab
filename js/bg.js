@@ -1,3 +1,9 @@
+
+function str_trim(inputString)
+{
+	return inputString.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+}
+
 opera.extension.onmessage = function(event) {
 
 	var	sitesToMatch = widget.preferences['siteList'],
@@ -9,7 +15,7 @@ opera.extension.onmessage = function(event) {
 	var allTabs = opera.extension.tabs.getAll();
 	
 	//iterate 'backwards', its more likely that the tab is new and is therefore at the end of the 
-	// list than near the beginning.
+	// list than near the beginning?
 	for(var x=allTabs.length-1; x>=0; --x) 
 	{
 		if(allTabs[x].port === event.source)
@@ -25,7 +31,8 @@ opera.extension.onmessage = function(event) {
 	
 	for (var x=0; x<sitesToMatch.length; ++x)
 	{
-		if (!doneOnce && event.data.url.toLowerCase().indexOf(sitesToMatch[x].toLowerCase())!=-1)
+		var url_to_compare = str_trim(sitesToMatch[x].toLowerCase());
+		if (url_to_compare !=="" && event.data.url.toLowerCase().indexOf(url_to_compare)!=-1)
 		{
 			opera.extension.tabs.create({
 				'url': event.data.url, 
