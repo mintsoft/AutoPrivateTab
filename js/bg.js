@@ -36,7 +36,7 @@ opera.extension.onmessage = function(event) {
 			opera.extension.tabs.create({
 				'url': event.data.url, 
 				'private': true, 
-				'focused': true
+				'focused': sourceTab.focused
 			});
 					
 			if(widget.preferences['closeSourceTab'])
