@@ -13,14 +13,28 @@
 			<h1><img src='icon.png' title='Logo' />AutoPrivateTab</h1>
 
 			<form id="prefform" onsubmit="return false;">
-				<p>If the full URL contains any of the following words (one match per line) it will be automatically reopened in a private tab:</p>
+				<p>If the full URL contains any of the matches (case insensitive) it will be opened in a private tab or pinned and the source tab closed or any combination of the options.</p>
 				<!--
-				<ul class='options'>
-					<li><input type='text' name=''/></li>
-				</ul>
-				-->
 				<textarea name='keyList' id='keyList' cols='88' rows='10'></textarea>
 				<p><label for='closeSourceTab'>Automatically Close Source Tab:</label> <input type='checkbox' id='closeSourceTab' name='closeSourceTab' /></p>
+				-->
+				<table id='optionsTable'>
+					<thead>
+						<tr><th>Match/Substring</th><th>Close Source Tab</th><th>Auto Private</th><th>Auto Pinned</th><th></th></tr>
+					</thead>
+					<tbody id='optionsTableBody'>
+						<tr class='hidden' id='optionsTemplate'>
+							<td class='centered'><input type='text' class='match' name='match' /></td>
+							<td class='centered'><input type='checkbox' name='close' /></td>
+							<td class='centered'><input type='checkbox' name='private' /></td>
+							<td class='centered'><input type='checkbox' name='pin' /></td>
+							<td class='centered'><img src='images/del.png' alt='Delete' title='Delete' class='clickable' /></td>
+						</tr>
+					</tbody>
+				</table>
+				<div id='addContainer'>
+					<a href='#' id='addMore'>Add More <img src='images/add.png' class='clickable' /></a>
+				</div>
 				<div id='saveContainer'>
 					<input type="button" value="Save" id='saveButtonInput' />
 				</div>

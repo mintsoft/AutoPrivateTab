@@ -1,3 +1,4 @@
+"use strict";
 opera.extension.onmessage = function(event) {
 
 	var	sitesToMatch = retrieveAndParsePropertyList(),
@@ -33,7 +34,7 @@ opera.extension.onmessage = function(event) {
 				'focused' : sourceTab.focused
 			});
 					
-			if(widget.preferences['closeSourceTab'])
+			if(sitesToMatch[x].closeSource)
 			{
 				sourceTab.close();
 			}

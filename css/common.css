@@ -61,9 +61,37 @@ input, textarea, select, .SelectWrapper
 	box-shadow: inset 1px 1px 2px #666;
 	color: #666;
 }
-input, textarea, select, .SelectWrapper, tr.explodeRow, tr.explodeRow td
+input, textarea, select
 {
 	background: #eee;
+}
+
+input.match 
+{
+	width: 34em;
+}
+
+.centered 
+{
+	text-align: center;
+}
+
+#addContainer {
+	text-align: right;
+	vertical-align: middle;
+}
+
+#addContainer img {
+	vertical-align: middle;
+	padding-right: 2px; /*Hack to get the + and - aligned */
+}
+
+#addContainer a {
+	text-decoration: none;
+}
+
+.clickable {
+	cursor: pointer;
 }
 
 /** Force a Y-scrollbar**/
@@ -79,6 +107,7 @@ input, textarea, select, .SelectWrapper, tr.explodeRow, tr.explodeRow td
 /** Save Button **/
 #saveContainer, .centeredContents
 {
+	margin-top: 2.2ex;
 	text-align: center;
 }
 

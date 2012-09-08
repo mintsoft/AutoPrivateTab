@@ -1,3 +1,4 @@
+"use strict";
 function retrieveAndParsePropertyList()
 {
 	var siteList = widget.preferences['siteList'];
@@ -8,8 +9,9 @@ function retrieveAndParsePropertyList()
 		if(typeof siteList[x] === "string")
 		{
 			siteList[x] = {
-							'keyword' : siteList[x], 
-							'private' : true
+							'keyword'	  : siteList[x], 
+							'private'	  : true,
+							'closeSource' : widget.preferences['closeSourceTab']=="true"
 						};
 		}
 	}

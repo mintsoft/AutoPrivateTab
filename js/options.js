@@ -1,6 +1,26 @@
+"use strict";
 function addKeywordObjectToOptions(keywordObject)
 {
-	document.getElementById("keyList").value += keywordObject.keyword+"\n";
+	//document.getElementById("keyList").value += keywordObject.keyword+"\n";
+	var target = document.getElementById("optionsTableBody");
+	//add new row to table
+	var template = document.getElementById("optionsTemplate");
+	var newObject = template.cloneNode(true);
+	newObject.className='';
+	
+	//populate with the correct information
+	newObject.querySelector("input[name=match]").value = keywordObject.keyword;
+	newObject.querySelector("input[name=close]").checked = keywordObject.closeSource;
+	newObject.querySelector("input[name=private]").checked = keywordObject.private; 
+	newObject.querySelector("input[name=pin]").checked = keywordObject.pin;
+	newObject.querySelector("img[title=Delete]").onclick = function(){deleteThisKeywordOption(this);return false;}
+	target.appendChild(newObject);
+	return false;
+}
+
+function deleteThisKeywordOption(keywordObject)
+{
+	keywordObject.parentNode.parentNode.parentNode.removeChild(keywordObject.parentNode.parentNode);
 }
 
 function loadList() {
@@ -11,8 +31,6 @@ function loadList() {
 		if(sitesToMatch[x].keyword.replace(/^\s+|\s+$/g, "")!="")	//skip blanks if they exist
 			addKeywordObjectToOptions(sitesToMatch[x]);
 	}
-	
-	document.getElementById("closeSourceTab").checked = widget.preferences['closeSourceTab']==="true";
 }
 
 function saveList() {
@@ -24,15 +42,14 @@ function saveList() {
 	for (var x=0; x<arrayList.length; ++x)
 	{
 		savingList[x] = {
-			'keyword' : arrayList[x], 
-			'private' : true,
-			'pin'	  : false
+			'keyword'     : arrayList[x].trim(), 
+			'private'     : true,
+			'pin'	 	  : false,
+			'closeSource' : document.getElementById("closeSourceTab").checked
 		};
 	}
 	
 	widget.preferences['siteList'] = JSON.stringify(savingList);
-	
-	widget.preferences['closeSourceTab'] = document.getElementById("closeSourceTab").checked;
 	
 	return false;
 }
@@ -41,4 +58,5 @@ window.onload = function() {
 	loadList();
 	document.getElementById("saveButtonInput").onclick = saveList;
 	document.getElementById("prefform").onsubmit = saveList;
+	document.getElementById("addMore").onclick = function() { addKeywordObjectToOptions({'keyword':''}); return false; };
 }
