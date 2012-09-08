@@ -1,8 +1,3 @@
-function str_trim(inputString)
-{
-	return inputString.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-}
-
 opera.extension.onmessage = function(event) {
 
 	var	sitesToMatch = retrieveAndParsePropertyList(),
@@ -29,7 +24,7 @@ opera.extension.onmessage = function(event) {
 	{
 		//is the variable a string? (old format)
 		//is the variable an array/object (new format)
-		var url_to_compare = str_trim(sitesToMatch[x].keyword.toLowerCase());
+		var url_to_compare = sitesToMatch[x].keyword.toLowerCase().trim();
 		if (url_to_compare !=="" && event.data.url.toLowerCase().indexOf(url_to_compare)!=-1)
 		{
 			opera.extension.tabs.create({
