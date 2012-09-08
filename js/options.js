@@ -1,11 +1,15 @@
+function addKeywordObjectToOptions(keywordObject)
+{
+	document.getElementById("keyList").value += keywordObject.keyword+"\n";
+}
+
 function loadList() {
-	var sitesToMatch = widget.preferences['siteList'];
-	sitesToMatch = JSON.parse(sitesToMatch?sitesToMatch:"[]");
+	var sitesToMatch = retrieveAndParsePropertyList();
 	
-	for (x=0; x<sitesToMatch.length; ++x)
+	for (var x in sitesToMatch)
 	{
-		if(sitesToMatch[x].replace(/^\s+|\s+$/g, "")!="")	//skip blanks if they exist
-			document.getElementById("keyList").value += sitesToMatch[x]+"\n";
+		if(sitesToMatch[x].keyword.replace(/^\s+|\s+$/g, "")!="")	//skip blanks if they exist
+			addKeywordObjectToOptions(sitesToMatch[x]);
 	}
 	
 	document.getElementById("closeSourceTab").checked = widget.preferences['closeSourceTab']==="true";
@@ -15,7 +19,18 @@ function saveList() {
 	var inputList = document.getElementById("keyList").value;
 	inputList = inputList.replace(/^\s+|\s+$/g, "");	//remove any spare lines on the end
 	var arrayList = inputList.split(/[\r\n]+/);
-	widget.preferences['siteList'] = JSON.stringify(arrayList);
+	var savingList = {};
+	
+	for (var x=0; x<arrayList.length; ++x)
+	{
+		savingList[x] = {
+			'keyword' : arrayList[x], 
+			'private' : true,
+			'pin'	  : false
+		};
+	}
+	
+	widget.preferences['siteList'] = JSON.stringify(savingList);
 	
 	widget.preferences['closeSourceTab'] = document.getElementById("closeSourceTab").checked;
 	

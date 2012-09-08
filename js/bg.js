@@ -1,4 +1,3 @@
-
 function str_trim(inputString)
 {
 	return inputString.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
@@ -6,10 +5,8 @@ function str_trim(inputString)
 
 opera.extension.onmessage = function(event) {
 
-	var	sitesToMatch = widget.preferences['siteList'],
-		sourceTab = {private: true};	//incase of a catastrophe we might a well just bomb out
-	
-	sitesToMatch = JSON.parse(sitesToMatch?sitesToMatch:"[]");
+	var	sitesToMatch = retrieveAndParsePropertyList(),
+		sourceTab = { 'private': true };	//incase of a catastrophe we might a well just bomb out
 	
 	var allTabs = opera.extension.tabs.getAll();
 	
@@ -28,15 +25,17 @@ opera.extension.onmessage = function(event) {
 	if(sourceTab.private==true)
 		return;
 	
-	for (var x=0; x<sitesToMatch.length; ++x)
+	for (var x in sitesToMatch)
 	{
-		var url_to_compare = str_trim(sitesToMatch[x].toLowerCase());
+		//is the variable a string? (old format)
+		//is the variable an array/object (new format)
+		var url_to_compare = str_trim(sitesToMatch[x].keyword.toLowerCase());
 		if (url_to_compare !=="" && event.data.url.toLowerCase().indexOf(url_to_compare)!=-1)
 		{
 			opera.extension.tabs.create({
-				'url': event.data.url, 
-				'private': true, 
-				'focused': sourceTab.focused
+				'url'	  : event.data.url, 
+				'private' : true, 
+				'focused' : sourceTab.focused
 			});
 					
 			if(widget.preferences['closeSourceTab'])
