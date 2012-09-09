@@ -6,7 +6,7 @@ function addKeywordObjectToOptions(keywordObject)
 	//add new row to table
 	var template = document.getElementById("optionsTemplate");
 	var newObject = template.cloneNode(true);
-	newObject.className='';
+	newObject.className='optionsRow';
 	
 	//populate with the correct information
 	newObject.querySelector("input[name=match]").value = keywordObject.keyword;
@@ -25,28 +25,37 @@ function deleteThisKeywordOption(keywordObject)
 
 function loadList() {
 	var sitesToMatch = retrieveAndParsePropertyList();
-	
+	var numAdded = 0;
 	for (var x in sitesToMatch)
 	{
 		if(sitesToMatch[x].keyword.replace(/^\s+|\s+$/g, "")!="")	//skip blanks if they exist
+		{
 			addKeywordObjectToOptions(sitesToMatch[x]);
+			++numAdded;
+		}
+	}
+	
+	//if there are no rows in the table, add a placeholder for appearance
+	if(numAdded==0)
+	{
+		document.getElementById("addMore").click();
 	}
 }
 
 function saveList() {
-	var inputList = document.getElementById("keyList").value;
-	inputList = inputList.replace(/^\s+|\s+$/g, "");	//remove any spare lines on the end
-	var arrayList = inputList.split(/[\r\n]+/);
-	var savingList = {};
-	
+	var savingList = [];
+	var arrayList = document.getElementById("optionsTable").querySelectorAll("tr.optionsRow");
 	for (var x=0; x<arrayList.length; ++x)
 	{
-		savingList[x] = {
-			'keyword'     : arrayList[x].trim(), 
-			'private'     : true,
-			'pin'	 	  : false,
-			'closeSource' : document.getElementById("closeSourceTab").checked
+		var savingObject = {
+			'keyword'     : arrayList[x].querySelector("input[name=match]").value, 
+			'private'     : arrayList[x].querySelector("input[name=private]").checked,
+			'pin'	 	  : arrayList[x].querySelector("input[name=pin]").checked,
+			'closeSource' : arrayList[x].querySelector("input[name=close]").checked
 		};
+	
+		if(savingObject.keyword.trim() != "")
+			savingList.push(savingObject); 
 	}
 	
 	widget.preferences['siteList'] = JSON.stringify(savingList);
@@ -55,8 +64,9 @@ function saveList() {
 }
 
 window.onload = function() {
-	loadList();
 	document.getElementById("saveButtonInput").onclick = saveList;
 	document.getElementById("prefform").onsubmit = saveList;
-	document.getElementById("addMore").onclick = function() { addKeywordObjectToOptions({'keyword':''}); return false; };
+	document.getElementById("addMore").onclick = function() { addKeywordObjectToOptions({'keyword':'', 'private':true}); return false; };
+	
+	loadList();
 }
