@@ -2,7 +2,7 @@
 opera.extension.onmessage = function(event) {
 
 	var	sitesToMatch = retrieveAndParsePropertyList(),
-		sourceTab = { 'private': true, 'fake' : true };	//incase of a catastrophe we might a well just bomb out
+		sourceTab = { 'private': true, 'apt_fake' : true };	//incase of a catastrophe we might a well just bomb out
 	
 	var allTabs = opera.extension.tabs.getAll();
 	
@@ -17,15 +17,18 @@ opera.extension.onmessage = function(event) {
 		} 
 	}
 	
+	if(sourceTab.apt_fake)
+		return;
+	
 	for (var x in sitesToMatch)
 	{
 		var url_to_compare = sitesToMatch[x].keyword.toLowerCase().trim();
-		if(url_to_compare =="") 
+		if(url_to_compare == "") 
 			continue;
 		if (event.data.url.toLowerCase().indexOf(url_to_compare)!=-1)
 		{
 			//Pinning & not private, so update current tab
-			if(sitesToMatch[x].pin && !sitesToMatch[x].private && !sourceTab.fake)
+			if(sitesToMatch[x].pin && !sitesToMatch[x].private)
 			{
 				sourceTab.update({locked: true});
 			}
