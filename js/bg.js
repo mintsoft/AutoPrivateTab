@@ -2,7 +2,7 @@
 opera.extension.onmessage = function(event) {
 
 	var	sitesToMatch = retrieveAndParsePropertyList(),
-		sourceTab = { 'private': true };	//incase of a catastrophe we might a well just bomb out
+		sourceTab = { 'private': true, 'fake' : true };	//incase of a catastrophe we might a well just bomb out
 	
 	var allTabs = opera.extension.tabs.getAll();
 	
@@ -16,29 +16,36 @@ opera.extension.onmessage = function(event) {
 			break;
 		} 
 	}
-
-	//if we're already private then do nothing
-	if(sourceTab.private==true)
-		return;
 	
 	for (var x in sitesToMatch)
 	{
-		//is the variable a string? (old format)
-		//is the variable an array/object (new format)
 		var url_to_compare = sitesToMatch[x].keyword.toLowerCase().trim();
-		if (url_to_compare !=="" && event.data.url.toLowerCase().indexOf(url_to_compare)!=-1)
+		if(url_to_compare =="") 
+			continue;
+		if (event.data.url.toLowerCase().indexOf(url_to_compare)!=-1)
 		{
-			opera.extension.tabs.create({
-				'url'	  : event.data.url, 
-				'private' : true, 
-				'focused' : sourceTab.focused
-			});
-					
-			if(sitesToMatch[x].closeSource)
+			//Pinning & not private, so update current tab
+			if(sitesToMatch[x].pin && !sitesToMatch[x].private && !sourceTab.fake)
 			{
-				sourceTab.close();
+				sourceTab.update({locked: true});
 			}
-			break;
+			
+			//Privating - create a new tab anyway
+			if(sitesToMatch[x].private)
+			{
+				opera.extension.tabs.create({
+					'url'	  : event.data.url, 
+					'private' : true, 
+					'focused' : sourceTab.focused,
+					'locked'  : sitesToMatch[x].pin
+				});
+						
+				if(sitesToMatch[x].closeSource)
+				{
+					sourceTab.close();
+				}
+				break;
+			}
 		}
 	}
 }
