@@ -34,7 +34,7 @@ opera.extension.onmessage = function(event) {
 			}
 			
 			//Privating - create a new tab anyway
-			if(sitesToMatch[x].private)
+			if(sitesToMatch[x].private && !sourceTab.private)
 			{
 				opera.extension.tabs.create({
 					'url'	  : event.data.url, 
